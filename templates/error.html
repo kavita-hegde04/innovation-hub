@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <title>error</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body style="overflow: hidden">
+    <style>
+      .fancy {
+        box-sizing: border-box;
+
+        width: 250px;
+        height: 250px;
+        padding: 80px 1em 0 1em;
+
+        margin: 100px 550px;
+
+        position: relative;
+
+        background-color: #a4c9cf;
+
+        border-radius: 100% 100% 0 0;
+      }
+
+      .fancy::before,
+      .fancy::after {
+        content: "";
+
+        position: absolute;
+        bottom: 0;
+        z-index: -1;
+
+        background-color: #a4c9cf;
+        border-radius: 100%;
+      }
+
+      .fancy::before {
+        width: 165px;
+        height: 165px;
+        left: -80px;
+
+        border-bottom-right-radius: 0;
+      }
+
+      .fancy::after {
+        width: 140px;
+        height: 140px;
+        right: -60px;
+
+        border-bottom-left-radius: 0;
+      }
+    </style>
+    <script>
+      window.setTimeout(function () {
+        // Move to a new location or you can do something else
+        window.location.href = "/";
+      }, 15000);
+    </script>
+    <div class="btn">
+      <a
+        href="/"
+        class="btn btn-dark"
+        style="position: absolute; top: 5px; right: 5px"
+        >Return to Home</a
+      >
+    </div>
+    <div class="fancy">
+      <br />
+      <h1 class="text-center">OOPS!</h1>
+      <h3 class="text-center">404 Error</h3>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-10 text-center">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %}
+        <div class="mt-1 alert alert-{{ category }}" role="alert">
+          <h1>{{ message }}</h1>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
+    </div>
+  </body>
+</html>

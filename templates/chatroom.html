@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatRoom</title>
+
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    /> <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"
+  ></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/styles.css')}}"
+    />
+    <link
+      href="{{url_for('static',filename='css/bootstrap.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{url_for('static',filename='css/fontawesome-all.min.css')}}"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<!-- Favicon  -->
+    <link rel="icon" href="{{url_for('static',filename='img/logoi.png')}}" />
+   </head>
+  <body>
+   
+    <style>
+      .chat-bubble-container {
+        display: flex;
+        width: 100%;
+      }
+
+      .chat-bubble {
+        padding: 1rem 1.4rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 0.9rem;
+        width: auto;
+      }
+      .msg-friend {
+        color: white;
+        background-color: grey;
+        margin-left: 3rem;
+        margin-right: auto;
+      }
+      .msg-self {
+        color: white;
+        background-color: #1597e5;
+        margin-right: 3rem;
+        margin-left: auto;
+      }
+    </style>   
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var objDiv = document.getElementById("messages");
+            objDiv.scrollTop = objDiv.scrollHeight;
+          var socket = io.connect("http://127.0.0.1:5000");
+  
+          socket.on("connect", function () {
+            console.log("User has connected!");
+          });
+  
+          socket.on("message", function (msg) {
+              var html = '<div class="chat-bubble-container">' + 
+           '<div class="chat-bubble msg-self">' + 
+               '<p class="text-white">' +msg+
+               '</p>' +
+               '</div>' +
+           '</div>';
+            $("#messages").append( html);
+            var objDiv = document.getElementById("messages");
+            objDiv.scrollTop = objDiv.scrollHeight;
+            console.log("Received message");
+          });
+  
+          $("#sendbutton").on("click", function () {
+            socket.send($("#myMessage").val(),{{rID|safe}});
+            $("#myMessage").val("");
+          });
+
+          
+          
+        });
+      </script>
+    <!-- Navigation -->
+    <nav
+      id="navbarExample"
+      class="navbar navbar-expand-lg fixed-top navbar-light"
+      aria-label="Main navigation"
+    >
+      <div class="container">
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="/"
+          ><img
+            src="{{url_for('static',filename='img/logoi2.png')}}"
+            alt="alternative"
+        /></a>
+        <li class="nav-item" style="list-style-type: none">
+          <h2 class="nav-item" aria-current="page" style="color: #000080">
+            InnoHub
+          </h2>
+        </li>
+        <!-- Text Logo - Use this if you don't have a graphic logo -->
+        <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
+
+        <button
+          class="navbar-toggler p-0 border-0"
+          type="button"
+          id="navbarSideCollapse"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="navbar-collapse offcanvas-collapse"
+          id="navbarsExampleDefault"
+        >
+          <ul class="navbar-nav ms-auto navbar-nav-scroll">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="/about"
+                >About</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/recent"
+                >Recent Ideas</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/my_profile">MyProfile</a>
+            </li>
+            {% if isadmin %}
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>{% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+          <!--- <span class="nav-item">
+                  <a class="btn-solid-sm" href="#contact">Get quote</a>
+              </span>-->
+        </div>
+        <!-- end of navbar-collapse -->
+      </div>
+      <!-- end of container -->
+    </nav>
+    <!-- end of navbar -->
+    <!-- end of navigation -->
+   <br><br>
+  
+    <div class="row d-flex justify-content-center">
+      <div
+        class="col-10 rounded m-5 d-flex flex-row"
+        style="background-color: #EDEDED;"
+      >
+        <div class="row w-25 bg-dark">
+          <div
+            class="col border-right ml-0"
+            style="background-color: #9DE1FE; margin-left: 0"
+          >
+            <div class="row mb-2 pb-4 pt-3 d-flex justify-content-center" style="border-bottom: 1px solid black;">
+              <h3 class="mt-2">Room Members </h3>
+              <h4
+              class="text-center ">{{usersList|length}}</h4><br>
+            </div>
+            <div>
+                {% for user in usersList %}
+              <div class="text-center m-2 text-dark" style="border-bottom: 1px solid black;">
+                <p>{{user[0]}}&nbsp;{{user[1]}}</p>
+              </div>
+              {% endfor %}
+              
+            </div>
+          </div>
+        </div>
+        <div class="col" style="background-color: #EDEDED">
+          <div class="row mb-3 pb-5 pt-3 d-flex justify-content-center">
+            <h2 class="mt-2 text-center">{{name}}&nbsp;-&nbsp;{{owner}}</h2>
+          </div>
+          <div class="m-b-0" id='messages' style="height: 400px;overflow-x: auto;background-color: white;">
+            {% for msg in messages %}
+            <div class="chat-bubble-container">
+                {% if uID==msg[4] %}
+                
+              <div class="chat-bubble msg-self">
+                <span  style="font-size: small;">{{msg[5]}}&nbsp;{{msg[2]}}</span><br />
+                <p class="text-white">{{ msg[1] }}</p>
+              </div>
+            </div>
+            {% else %}
+              <div class="chat-bubble msg-friend">
+                <span style="font-size: small;">{{msg[5]}}&nbsp;{{msg[2]}}</span><br />
+                <p class="text-white">{{ msg[1] }}</p>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+           
+          </div>
+
+          <div class="row">
+            <div class="input-group mb-0">
+              <div class="input-group-prepend"></div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter text here..."
+                id="myMessage"
+              />
+              <span class="input-group-text"><i class="fa fa-send"  id="sendbutton" style="cursor: pointer;"></i></span>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-basic">
+      <footer>
+        <ul class="list-inline">
+          <hr />
+          <li class="list-inline-item">
+            <a href="/contact-us">Contact Us</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="/faq">FAQs</a>
+          </li>
+          <li class="list-inline-item text-muted">Made By © Squad 0</li>
+        </ul>
+        <br />
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/styles.css')}}"
+    />
+    <link
+      href="{{url_for('static',filename='css/bootstrap.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{url_for('static',filename='css/fontawesome-all.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <!-- Favicon  -->
+    <link rel="icon" href="{{url_for('static',filename='img/logoi.png')}}" />
+  </head>
+  <body style="overflow-x: hidden">
+    <!-- Navigation -->
+    <nav
+      id="navbarExample"
+      class="navbar navbar-expand-lg fixed-top navbar-light"
+      aria-label="Main navigation"
+    >
+      <div class="container">
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="/"
+          ><img
+            src="{{url_for('static',filename='img/logoi2.png')}}"
+            alt="alternative"
+        /></a>
+        <li class="nav-item" style="list-style-type: none">
+          <h2 class="nav-item" aria-current="page" style="color: #000080">
+            InnoHub
+          </h2>
+        </li>
+        <!-- Text Logo - Use this if you don't have a graphic logo -->
+        <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
+
+        <button
+          class="navbar-toggler p-0 border-0"
+          type="button"
+          id="navbarSideCollapse"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="navbar-collapse offcanvas-collapse"
+          id="navbarsExampleDefault"
+        >
+          <ul class="navbar-nav ms-auto navbar-nav-scroll">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/recent"
+                >Recent Ideas</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/my_profile">MyProfile</a>
+            </li>
+            {% if isadmin %}
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+          <!--- <span class="nav-item">
+                  <a class="btn-solid-sm" href="#contact">Get quote</a>
+              </span>-->
+        </div>
+        <!-- end of navbar-collapse -->
+      </div>
+      <!-- end of container -->
+    </nav>
+    <!-- end of navbar -->
+    <!-- end of navigation -->
+    <br />
+    <br />
+    <br />
+    <div class="row align-items-center mt-5">
+      <div class="col-5 mr-5 d-flex justify-content-center">
+        <div class="about-avatar">
+          {% if data[3] == 'Male'%}
+          <img
+            src="{{url_for('static',filename='img/male.jfif')}}"
+            title=""
+            alt="male"
+          />{% elif data[3]=='Female' %}
+          <img
+            src="{{url_for('static',filename='img/female.jpg')}}"
+            title=""
+            alt="female"
+          />
+          {% else %}
+          <img
+            src="{{url_for('static',filename='img/other.png')}}"
+            title=""
+            alt="other"
+          />
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-5 ml-3">
+        <div class="d-flex align-items-center">
+          {% if data[8] == 1 %}
+          <h1 class="font-weight-bold" style="color: #544179; display: inline">
+            Admin Profile &emsp;&emsp;&emsp;&nbsp;&nbsp;
+          </h1>
+          {% else %}
+          <h1 class="font-weight-bold" style="color: #544179; display: inline">
+            My Profile &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+          </h1>
+          {% endif %}
+
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+
+        <div class="row about-list">
+          <div class="col">
+            <div class="media">
+              <label style="color: #678983; font-size: large"
+                ><b>Name&nbsp;&nbsp;&nbsp; : &nbsp;</b></label
+              >
+              <p class="text-capitalize" style="font-size: large">
+                {{data[1]}} {{data[2]}}
+              </p>
+            </div>
+            <div class="media">
+              <label style="color: #678983; font-size: large"
+                ><b>Gender &nbsp;: &nbsp;</b></label
+              >
+              <p style="font-size: large">{{data[3]}}</p>
+            </div>
+            <div class="media">
+              <label style="color: #678983; font-size: large"
+                ><b>Dept &nbsp; &nbsp;&nbsp;&nbsp;: &nbsp;</b></label
+              >
+              <p style="font-size: large">{{data[7]}}</p>
+            </div>
+            <div class="media">
+              <label style="color: #678983; font-size: large"
+                ><b>E-mail &nbsp;&nbsp;: &nbsp;</b></label
+              >
+              <p style="font-size: large">{{data[5]}}</p>
+            </div>
+            <div class="media">
+              <label style="color: #678983; font-size: large"
+                ><b>Phone &nbsp;&nbsp;: &nbsp;</b></label
+              >
+              <p style="font-size: large">{{data[4]}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row m-5 bg-secondary pt-2 pb-2">
+      <div class="col">
+        <div class="count-data text-center">
+          <h6 class="count h2" data-to="500" data-speed="500">{{ideas[0]}}</h6>
+          <p class="m-0px font-w-600 text-white">My Ideas</p>
+          <a href="{{url_for('my_ideas')}}" class="btn btn-outline-light m-1"
+            >Go</a
+          >
+        </div>
+      </div>
+      <div class="col">
+        <div class="count-data text-center">
+          <h6 class="count h2" data-to="850" data-speed="850">
+            {{subscriptions[0]}}
+          </h6>
+          <p class="m-0px font-w-600 text-white">My Subscriptions</p>
+          <a
+            href="{{url_for('my_subscriptions')}}"
+            class="btn btn-outline-light m-1"
+            >Go</a
+          >
+        </div>
+      </div>
+      <div class="col">
+        <div class="count-data text-center">
+          <h6 class="count h2" data-to="150" data-speed="150">{{favcat[0]}}</h6>
+          <p class="m-0px font-w-600 text-white">Favourite Categories</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="count-data text-center">
+          <h6 class="count h2" data-to="150" data-speed="150">
+            {{subscribers[0]}}
+          </h6>
+          <p class="m-0px font-w-600 text-white">Total Subscribers</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-basic">
+      <footer>
+        <ul class="list-inline">
+          <hr />
+          <li class="list-inline-item">
+            <a href="/contact-us">Contact Us</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="/faq">FAQs</a>
+          </li>
+          <li class="list-inline-item text-muted">Made By © Squad 0</li>
+        </ul>
+        <br />
+      </footer>
+    </div>
+  </body>
+</html>

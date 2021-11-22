@@ -1,0 +1,59 @@
+form .field.shake{
+    animation: shake 0.3s ease-in-out;
+  }
+  @keyframes shake {
+    0%, 100%{
+      margin-left: 0px;
+    }
+    20%, 80%{
+      margin-left: -12px;
+    }
+    40%, 60%{
+      margin-left: 12px;
+    }
+  }
+
+form .field.shake input,
+form .field.error input{
+  border-color: #dc3545;
+}
+.input-area .error-icon{
+    right: 15px;
+    color: #dc3545;
+  }
+
+
+form .field .error-txt{
+  color: #dc3545;
+  text-align: left;
+  margin-top: 5px;
+}
+form .field .error{
+  display: none;
+}
+form .field.shake .error,
+form .field.error .error{
+  display: block;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid1 {
+    color: green;
+  }
+  
+.valid1:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+}
+  
+  /* Add a red text color and an "x" when the requirements are wrong */
+  .invalid {
+    color: red;
+  }
+  
+  .invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+  }

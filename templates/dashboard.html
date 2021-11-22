@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/styles.css')}}"
+    />
+    <link
+      href="{{url_for('static',filename='css/bootstrap.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{url_for('static',filename='css/fontawesome-all.min.css')}}"
+      rel="stylesheet"
+    />
+    <!-- Favicon  -->
+    <link rel="icon" href="{{url_for('static',filename='img/logoi.png')}}" />
+  </head>
+  <body>
+    <style>
+      p {
+        color: black;
+      }
+      table,
+      td,
+      tr,
+      th,
+      thead,
+      tbody {
+        border: none;
+      }
+    </style>
+    <!-- Navigation -->
+    <nav
+      id="navbarExample"
+      class="navbar navbar-expand-lg fixed-top navbar-light"
+      aria-label="Main navigation"
+    >
+      <div class="container">
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="/"
+          ><img
+            src="{{url_for('static',filename='img/logoi2.png')}}"
+            alt="alternative"
+        /></a>
+        <li class="nav-item" style="list-style-type: none">
+          <h2 class="nav-item" aria-current="page" style="color: #000080">
+            InnoHub
+          </h2>
+        </li>
+        <!-- Text Logo - Use this if you don't have a graphic logo -->
+        <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
+
+        <button
+          class="navbar-toggler p-0 border-0"
+          type="button"
+          id="navbarSideCollapse"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="navbar-collapse offcanvas-collapse"
+          id="navbarsExampleDefault"
+        >
+          <ul class="navbar-nav ms-auto navbar-nav-scroll">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/recent"
+                >Recent Ideas</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/my_profile">MyProfile</a>
+            </li>
+            {% if isadmin %}
+            <li class="nav-item">
+              <a class="nav-link active" href="/dashboard">Dashboard</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+          <!--- <span class="nav-item">
+                    <a class="btn-solid-sm" href="#contact">Get quote</a>
+                </span>-->
+        </div>
+        <!-- end of navbar-collapse -->
+      </div>
+      <!-- end of container -->
+    </nav>
+    <!-- end of navbar -->
+    <!-- end of navigation -->
+    <br /><br />
+    <h2 class="text-center mt-5 mb-4">DASHBOARD</h2>
+    <div class="row m-5 d-flex justify-content-center">
+      <div class="card-deck">
+        <div
+          class="card"
+          style="
+            border-radius: 10px;
+            box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.1);
+          "
+        >
+          <div class="card-body text-center">
+            <p class="card-text">Total Users <br />{{user_count[0]}}</p>
+          </div>
+          <div class="gradient-floor red-to-blue"></div>
+        </div>
+        <div
+          class="card"
+          style="
+            border-radius: 10px;
+            box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.1);
+          "
+        >
+          <div class="card-body text-center">
+            <p class="card-text">
+              Total Ideas <br />
+              {{idea_count[0]}}
+            </p>
+          </div>
+          <div class="gradient-floor red-to-blue"></div>
+        </div>
+        <div
+          class="card"
+          style="
+            border-radius: 10px;
+            box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.1);
+          "
+        >
+          <div class="card-body text-center">
+            <p class="card-text">Total Categories <br />6</p>
+          </div>
+          <div class="gradient-floor red-to-blue"></div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row m-5 card"
+      style="
+        border-radius: 10px;
+        border-bottom: none !important;
+        box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <h3 class="text-center mt-5">Idea Status</h3>
+      <div class="col-12 d-flex justify-content-between align-items-center">
+        <div class="col-8">
+          <div id="piechart" style="width: 800px; height: 500px"></div>
+        </div>
+        <div class="col-4">
+          <p>
+            Total Ideas &nbsp;&nbsp;&nbsp;&emsp;&emsp;:&nbsp; {{idea_count[0]}}
+          </p>
+          <p>Initiated Ideas&emsp;&emsp;:&nbsp;{{piedata['initiated']}}</p>
+          <p>In-Progress Ideas&nbsp;:&nbsp;{{piedata['in-progress']}}</p>
+          <p>Completed Ideas&nbsp;&nbsp;:&nbsp;{{piedata['completed']}}</p>
+          <p>
+            Blocked Ideas&nbsp;&nbsp;&nbsp;&emsp;:&nbsp;{{piedata['blocked']}}
+          </p>
+        </div>
+        <div class="gradient-floor purple-to-green"></div>
+      </div>
+    </div>
+    <div
+      class="row m-5 card"
+      style="
+        border-radius: 10px;
+        border-bottom: none !important;
+        box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <h3 class="text-center mt-5">Idea per Category</h3>
+      <div class="col-12 d-flex justify-content-between align-items-center">
+        <div class="col-8">
+          <div id="piechart2" style="width: 800px; height: 500px"></div>
+        </div>
+        <div class="col-4">
+          <p>Total Categories&nbsp;&nbsp;:&nbsp;6</p>
+          <p>
+            Technology&emsp;&emsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{piedata2['Technology']}}
+          </p>
+          <p>
+            Social-Service&emsp;&nbsp;&nbsp;:&nbsp;{{piedata2['Social-Service']}}
+          </p>
+          <p>Healthcare&emsp;&emsp;&emsp;:&nbsp;{{piedata2['Healthcare']}}</p>
+          <p>Photography&emsp;&nbsp;&emsp;:&nbsp;{{piedata2['Photography']}}</p>
+          <p>
+            Music&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;:&nbsp;{{piedata2['Music']}}
+          </p>
+          <p>
+            Arts and Crafts&emsp;&nbsp;:&nbsp;{{piedata2['Arts and Crafts']}}
+          </p>
+        </div>
+        <div class="gradient-floor red-to-blue"></div>
+      </div>
+    </div>
+    <div
+      class="row m-5 card"
+      style="
+        border-radius: 10px;
+        border-bottom: none !important;
+        box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <h2 class="col-12 text-center mt-4 mb-4">Room Details</h2>
+      <div class="col-12 d-flex justify-content-between align-items-center">
+        <br />
+        <br />
+        <br />
+        <table class="ml-4 mt-2 table">
+          <thead>
+            <tr>
+              <th>Room Title</th>
+              <th>Owner Name</th>
+              <th>Subscribers</th>
+              <th>Category</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in data %}
+            <tr class="text-capitalize">
+              <td>{{i[0]}}</td>
+              <td>{{i[1]}}&nbsp;{{i[2]}}</td>
+              <td>{{i[5]}}</td>
+              <td>{{i[3]}}</td>
+              <td>{{i[4]}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="gradient-floor blue-to-purple"></div>
+    </div>
+    <div class="footer-basic">
+      <footer>
+        <ul class="list-inline">
+          <hr />
+          <li class="list-inline-item">
+            <a href="/contact-us">Contact Us</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="/faq">FAQs</a>
+          </li>
+          <li class="list-inline-item text-muted">Made By © Squad 0</li>
+        </ul>
+        <br />
+      </footer>
+    </div>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            {% for key, value in piedata.items() %}
+                {% if value is string %}
+                    ['{{ key }}', '{{ value }}'],
+                {% else %}
+                    ['{{ key }}', {{ value }}],
+                {% endif %}
+            {% endfor %}
+        ]);
+
+        var options = {
+          title: 'Idea Status',
+          sliceVisibilityThreshold:0,
+          //pieHole: 0.5
+          pieStartAngle: 100
+          /*slices: {
+            2: {offset: 0.2},
+            3: {offset: 0.3}
+          }*/
+          /*slices: {
+            1: { color: 'transparent' }
+          }*/
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+      }
+    </script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            {% for key, value in piedata2.items() %}
+                {% if value is string %}
+                    ['{{ key }}', '{{ value }}'],
+                {% else %}
+                    ['{{ key }}', {{ value }}],
+                {% endif %}
+            {% endfor %}
+        ]);
+
+        var options = {
+          title: 'Idea per Category',
+          sliceVisibilityThreshold:0,
+          //pieHole: 0.5
+          pieStartAngle: 100
+          /*slices: {
+            2: {offset: 0.2},
+            3: {offset: 0.3}
+          }*/
+          /*slices: {
+            1: { color: 'transparent' }
+          }*/
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+        chart.draw(data, options);
+      }
+    </script>
+  </body>
+</html>

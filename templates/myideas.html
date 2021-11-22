@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Your description">
+    <meta name="author" content="Your name">
+
+    <!-- OG Meta Tags to improve the way the post looks when you share the page on Facebook, Twitter, LinkedIn -->
+	<meta property="og:site_name" content="" /> <!-- website name -->
+	<meta property="og:site" content="" /> <!-- website link -->
+	<meta property="og:title" content=""/> <!-- title shown in the actual shared post -->
+	<meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
+	<meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
+	<meta property="og:url" content="" /> <!-- where do you want your post to link to -->
+	<meta name="twitter:card" content="summary_large_image"> <!-- to have large image post format in Twitter -->
+
+    <!-- Webpage Title -->
+    <title>myideas</title>
+    
+   
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/styles.css')}}"
+    />
+    <link
+      href="{{url_for('static',filename='css/bootstrap.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{url_for('static',filename='css/fontawesome-all.min.css')}}"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<!-- Favicon  -->
+    <link rel="icon" href="{{url_for('static',filename='img/logoi.png')}}" />
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbarExample">
+    
+<style>
+  #like{
+ position:fixed;
+ bottom:5%;
+ right:2%;  
+       z-index: 2147483648;
+  }
+  .heart{
+    color: rgb(224,66,151);
+  }
+  .plus{
+    color:rgb(8,143,251);
+  }
+  #like a{
+    text-decoration: none; color: inherit;
+  }
+  #like div:hover{
+   cursor: pointer;
+transition: 0.3s ease-in-out;
+box-shadow: 8px 18px 28px 9px rgba(0,0,0,0.4);
+-webkit-box-shadow: 8px 18px 28px 9px rgba(0,0,0,0.4);
+-moz-box-shadow: 8px 18px 28px 9px rgba(0,0,0,0.4);
+ transform: translateY(-0.25em);
+ border-radius: 25px;
+  }
+
+  
+</style>
+    <!-- Navigation -->
+    <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
+        <div class="container">
+
+            <!-- Image Logo -->
+            <a class="navbar-brand logo-image" href="/"><img 
+              src="{{url_for('static',filename='img/logoi2.png')}}"alt="alternative"></a> 
+            <li class="nav-item" style ="list-style-type: none;">
+                <h2 class="nav-item" aria-current="page" style="color:#000080" >InnoHub </h2>
+            </li>
+            <!-- Text Logo - Use this if you don't have a graphic logo -->
+            <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
+
+            <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav ms-auto navbar-nav-scroll">
+                    <li class="nav-item">
+                        <a class="nav-link " aria-current="page" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " aria-current="page" href="/about"
+                        >About</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" aria-current="page" href="/recent"
+                        >Recent Ideas</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/my_profile">MyProfile</a>
+                    </li>
+                    {% if isadmin %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>{% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                   
+                </ul>
+               <!--- <span class="nav-item">
+                    <a class="btn-solid-sm" href="#contact">Get quote</a>
+                </span>-->
+            </div> <!-- end of navbar-collapse -->
+        </div> <!-- end of container -->
+    </nav> <!-- end of navbar -->
+    <!-- end of navigation -->
+
+
+      
+   
+
+
+    
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of cards-1 -->
+    <!-- end of services -->
+
+   
+      
+    
+    <!-- Testimonials -->
+    <div class="cards-2 bg-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="h2-heading">My Ideas </h2> 
+                        
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row">
+                {% if data|length %}
+                <div class="col-lg-12">
+                    {% for i in data %}
+                    <!-- Card -->
+                    <a href="{{url_for('idea',id=i[2])}}" style="text-decoration: none;">
+                    <div class="card" style="height: 350px;">
+                        
+                      <img class="quotes" src="{{url_for('static',filename='img/quotes.svg')}}" alt="alternative">
+                     
+                      <div class="card-body">
+                        <p><b>{{i[0]}}</b></p>
+                            <p class="testimonial-text">{{i[1]}}</p>
+                            <div class="testimonial-author">{{i[3]}} </div>
+                        </div>
+                        <div class="gradient-floor red-to-blue"></div>
+                    </div></a>
+                    {% endfor %}
+                    <!-- end of card -->
+
+                </div> <!-- end of col -->
+                
+                {% else %}
+                <div class="col text-center" style="height: 300px;width: 500px;"><h2> You Haven't Posted any Idea Yet<br> Please create one</h2></div>
+                {% endif %}
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of cards-2 -->
+    <!-- end of testimonials -->
+
+    <!-- Customers -->
+    
+    <!-- end of customers -->
+
+
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form-1 -->
+    <!-- end of contact -->
+
+
+    
+
+
+    <!-- Copyright -->
+
+    <div class="footer-basic">
+        <footer>
+          <ul class="list-inline">
+            <hr />
+            <li class="list-inline-item">
+              <a href="/contact-us">Contact Us</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="/faq">FAQs</a>
+            </li>
+            <li class="list-inline-item text-muted">Made By © Squad 0</li>
+          </ul>
+          <br />
+        </footer>
+      </div>
+      <div id="like" >
+        <div class="p-2 plus-div text-center" onclick="window.location.href='/createidea'"><i id="spans"  class="fa fa-plus fa-2x plus" title="create idea"></i>
+        </div><div class="p-2 heart-div" onclick="window.location.href='/my_subscriptions'"><i id="spans" class="fa fa-2x fa-heart heart" title="subscriptions"></i></div></div>
+   
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/styles.css')}}"
+    />
+    <link
+      href="{{url_for('static',filename='css/bootstrap.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{url_for('static',filename='css/fontawesome-all.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <!-- Favicon  -->
+    <link rel="icon" href="{{url_for('static',filename='img/logoi.png')}}" />
+  </head>
+  <body>
+    <style>
+      #form {
+        position: absolute;
+        margin-top: 2%;
+        margin-left: 5%;
+        width: 90vw;
+        height: 90vh;
+        background-color: rgb(26, 115, 232);
+        z-index: 2147483647;
+        box-shadow: 8px 18px 28px 9px rgba(0, 0, 0, 0.4);
+        -webkit-box-shadow: 8px 18px 28px 9px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 8px 18px 28px 9px rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+        -webkit-animation-duration: 3s;
+        animation-duration: 3s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+      }
+      @-webkit-keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @-moz-keyframes fadein {
+        /* Firefox */
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @-webkit-keyframes fadein {
+        /* Safari and Chrome */
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @-o-keyframes fadein {
+        /* Opera */
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      ul {
+        list-style-type: none;
+        columns: 3;
+        animation: fadein 4s;
+        -moz-animation: fadein 4s; /* Firefox */
+        -webkit-animation: fadein 4s; /* Safari and Chrome */
+        -o-animation: fadein 4s; /* Opera */
+      }
+
+      li {
+        display: inline-block;
+      }
+
+      input[type="checkbox"][id^="cb"] {
+        display: none;
+      }
+
+      label {
+        border: 1px solid #fff;
+        padding: 10px;
+        display: block;
+        position: relative;
+        margin: 10px;
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      label::before {
+        background-color: white;
+        color: white;
+        content: " ";
+        display: block;
+        border-radius: 50%;
+        border: 1px solid grey;
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        line-height: 28px;
+        transition-duration: 0.4s;
+        transform: scale(0);
+      }
+
+      label div {
+        height: 100px;
+        width: 100px;
+        background-color: lightyellow;
+        color: black;
+        transition-duration: 0.2s;
+        transform-origin: 50% 50%;
+      }
+
+      :checked + label {
+        border-color: #ddd;
+      }
+
+      :checked + label::before {
+        content: "✓";
+        background-color: green;
+        transform: scale(1);
+      }
+
+      :checked + label img {
+        transform: scale(0.9);
+        box-shadow: 0 0 5px #333;
+        z-index: -1;
+      }
+    </style>
+    <div id="form" class="text-white">
+      <h1 class="text-center mt-5 mb-5">Let us know what you want to see</h1>
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col">
+          <form action="" method="post">
+            <ul class="mt-2">
+              <li>
+                <input type="checkbox" id="cb1" name="cat1" checked value="1" />
+                <label for="cb1"
+                  ><div class="text-center pt-4">Technology</div></label
+                >
+              </li>
+              <li>
+                <input type="checkbox" name="cat2" id="cb2" value="2" />
+                <label for="cb2"
+                  ><div class="text-center pt-4">Social-Service</div></label
+                >
+              </li>
+              <li>
+                <input type="checkbox" name="cat3" id="cb3" value="6" />
+                <label for="cb3"
+                  ><div class="text-center pt-4">Healthcare</div></label
+                >
+              </li>
+              <li>
+                <input type="checkbox" name="cat4" id="cb4" value="3" />
+                <label for="cb4"
+                  ><div class="text-center pt-4">Photography</div></label
+                >
+              </li>
+              <li>
+                <input type="checkbox" name="cat5" id="cb5" value="4" />
+                <label for="cb5"
+                  ><div class="text-center pt-4">Music</div></label
+                >
+              </li>
+              <li>
+                <input type="checkbox" name="cat6" id="cb6" value="5" />
+                <label for="cb6"
+                  ><div class="text-center pt-4">Arts & Crafts</div></label
+                >
+              </li>
+            </ul>
+            <input
+              type="submit"
+              value="Submit"
+              class="btn btn-success form-control"
+            />
+          </form>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <!-- Navigation -->
+    <nav
+      id="navbarExample"
+      class="navbar navbar-expand-lg fixed-top navbar-light"
+      aria-label="Main navigation"
+    >
+      <div class="container">
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="/"
+          ><img
+            src="{{url_for('static',filename='img/logoi2.png')}}"
+            alt="alternative"
+        /></a>
+        <li class="nav-item" style="list-style-type: none">
+          <h2 class="nav-item" aria-current="page" style="color: #000080">
+            InnoHub
+          </h2>
+        </li>
+        <!-- Text Logo - Use this if you don't have a graphic logo -->
+        <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
+
+        <button
+          class="navbar-toggler p-0 border-0"
+          type="button"
+          id="navbarSideCollapse"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="navbar-collapse offcanvas-collapse"
+          id="navbarsExampleDefault"
+        >
+          <ul class="navbar-nav ms-auto navbar-nav-scroll">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/recent"
+                >Recent Ideas</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/my_profile">MyProfile</a>
+            </li>
+            {% if isadmin %}
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+          <!--- <span class="nav-item">
+                    <a class="btn-solid-sm" href="#contact">Get quote</a>
+                </span>-->
+        </div>
+        <!-- end of navbar-collapse -->
+      </div>
+      <!-- end of container -->
+    </nav>
+    <!-- end of navbar -->
+    <!-- end of navigation -->
+    <br />
+    <br />
+    <br />
+
+    <div class="row w-100 h-75"></div>
+
+    <div class="footer-basic">
+      <footer>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="/contact-us">Contact Us</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="/faq">FAQs</a>
+          </li>
+          <li class="list-inline-item text-muted">Made By © Squad 0</li>
+        </ul>
+        <br />
+      </footer>
+    </div>
+    <script>
+      function show() {
+        var cboxes = document.getElementsByName("cat");
+        var len = cboxes.length;
+        for (var i = 0; i < len; i++) {
+          alert(
+            i +
+              (cboxes[i].checked ? " checked " : " unchecked ") +
+              cboxes[i].value
+          );
+        }
+      }
+    </script>
+  </body>
+</html>

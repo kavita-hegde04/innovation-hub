@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InnoHub</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/styles.css')}}"
+    />
+    <link
+      href="{{url_for('static',filename='css/bootstrap.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{url_for('static',filename='css/fontawesome-all.min.css')}}"
+      rel="stylesheet"
+    />
+    <!-- Favicon  -->
+    <link rel="icon" href="{{url_for('static',filename='img/logoi.png')}}" />
+  </head>
+  <body>
+    <script>
+      function showDiv() {
+        document.getElementById("update").style.display = "none";
+        document.getElementById("update-progress").style.display = "";
+      }
+    </script>
+    <script>
+      $(document).ready(function () {
+        let data = {{data|tojson }}
+        console.log(data);
+        console.log(typeof(data))
+        if (data[6] == "initiated") {
+          $("#blocked").hide();
+          $("#display-progress").show();
+          $("#in-progress").removeClass("bg-warning");
+          $("#in-progress").addClass("bg-light text-dark");
+          $("#completed").removeClass("bg-success");
+          $("#completed").addClass("bg-light text-dark");
+          $("#initiated").removeClass("bg-light");
+          $("#initiated").addClass("bg-info");
+        } else if (data[6] == "in-progress") {
+          $("#blocked").hide();
+          $("#display-progress").show();
+          $("#initiated").removeClass("bg-light");
+          $("#initiated").addClass("bg-info");
+          $("#in-progress").removeClass("bg-light text-dark");
+          $("#in-progress").addClass("bg-warning");
+          $("#completed").removeClass("bg-success");
+          $("#completed").addClass("bg-light text-dark");
+        } else if (data[6] == "completed") {
+          $("#blocked").hide();
+          $("#display-progress").show();
+          $("#in-progress").removeClass("bg-light text-dark");
+          $("#in-progress").addClass("bg-warning");
+          $("#completed").removeClass("bg-light text-dark");
+          $("#completed").addClass("bg-success");
+        } else if (data[6] == "blocked") {
+          $("#blocked").show();
+          $("#display-progress").hide();
+        }
+        $("#submit-btn").click(function () {
+          var a = document.getElementById("progress");
+          var selected = a.options[a.selectedIndex].text;
+          if (selected == "initiated") {
+            $("#blocked").hide();
+            $("#display-progress").show();
+            $("#in-progress").removeClass("bg-warning");
+            $("#in-progress").addClass("bg-light text-dark");
+            $("#completed").removeClass("bg-success");
+            $("#completed").addClass("bg-light text-dark");
+            $("#initiated").removeClass("bg-light");
+            $("#initiated").addClass("bg-info");
+          } else if (selected == "in-progress") {
+            $("#blocked").hide();
+            $("#display-progress").show();
+            $("#initiated").removeClass("bg-light");
+            $("#initiated").addClass("bg-info");
+            $("#in-progress").removeClass("bg-light text-dark");
+            $("#in-progress").addClass("bg-warning");
+            $("#completed").removeClass("bg-success");
+            $("#completed").addClass("bg-light text-dark");
+          } else if (selected == "completed") {
+            $("#blocked").hide();
+            $("#display-progress").show();
+            $("#in-progress").removeClass("bg-light text-dark");
+            $("#in-progress").addClass("bg-warning");
+            $("#completed").removeClass("bg-light text-dark");
+            $("#completed").addClass("bg-success");
+          } else if (selected == "blocked") {
+            $("#blocked").show();
+            $("#display-progress").hide();
+          }
+          $("#update-progress").hide();
+          $("#update").show();
+        });
+      });
+    </script>
+    <!-- Navigation -->
+    <nav
+      id="navbarExample"
+      class="navbar navbar-expand-lg fixed-top navbar-light"
+      aria-label="Main navigation"
+    >
+      <div class="container">
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="/"
+          ><img
+            src="{{url_for('static',filename='img/logoi2.png')}}"
+            alt="alternative"
+        /></a>
+        <li class="nav-item" style="list-style-type: none">
+          <h2 class="nav-item" aria-current="page" style="color: #000080">
+            InnoHub
+          </h2>
+        </li>
+        <!-- Text Logo - Use this if you don't have a graphic logo -->
+        <!-- <a class="navbar-brand logo-text" href="index.html">Nubis</a> -->
+
+        <button
+          class="navbar-toggler p-0 border-0"
+          type="button"
+          id="navbarSideCollapse"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="navbar-collapse offcanvas-collapse"
+          id="navbarsExampleDefault"
+        >
+          <ul class="navbar-nav ms-auto navbar-nav-scroll">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/recent"
+                >Recent Ideas</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/my_profile">MyProfile</a>
+            </li>
+            {% if isadmin %}
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard">Dashboard</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+          <!--- <span class="nav-item">
+                    <a class="btn-solid-sm" href="#contact">Get quote</a>
+                </span>-->
+        </div>
+        <!-- end of navbar-collapse -->
+      </div>
+      <!-- end of container -->
+    </nav>
+    <!-- end of navbar -->
+    <!-- end of navigation -->
+
+    <div class="container clearfix cards-2">
+      <div class="h2-heading"><h2>Title&nbsp; -&nbsp; {{data[4]}}</h2></div>
+      <div class="row d-sm-block">
+        <div class="col-lg-12 d-flex justify-content-between align-items-center">
+          <div class="card" style="min-height: 300px;width: 800px;text-align: justify;">
+            <img
+              class="quotes"
+              src="{{url_for('static',filename='img/quotes.svg')}}"
+              alt="alternative"
+            />
+
+            <div class="card-body">
+              <p><b>Description</b></p>
+              <div class="testimonial-author">{{data[5]}}</div>
+            </div>
+            <div class="gradient-floor purple-to-green"></div>
+          </div>
+          <div class="card ">
+            <div class="card-body">
+              <p class="testimonial-author"><b>User Details</b></p>
+                  <div class="testimonial-text"> Idea Owner &nbsp; :</b>&nbsp; {{data[0]}}</div>
+                  <div class="testimonial-text"> Department&nbsp;: </b>&nbsp;{{data[2]}}</div>
+                  <div class="testimonial-text">Category&nbsp;:</b>&nbsp; {{data[7]}}</div>
+                  <div class="testimonial-text"> Mail-id&nbsp;:</b> &nbsp;{{data[1]}}</div>
+              </div>
+              <div class="gradient-floor purple-to-green"></div>
+          </div>
+        
+        </div>
+        <div class="col-sm-10 float-left d-flex justify-content-between">
+          <h4 class="text-center">Subscribers:&nbsp;{{subscribers}}</h4>
+          {% if is_owner %}
+          <div class="div" id="update">
+            <a class="btn btn-dark text-white" onclick="showDiv()">
+              Update Progress </a
+            >&nbsp;<a
+              href="{{url_for('chatroom',id=data[3])}}"
+              class="btn btn-dark"
+              >Access Chat-Room</a
+            >
+            {% else %}
+            <form action="" method="POST">
+              <input type="hidden" name="form-name" value="subscribe" />
+              <input
+                class="btn btn-dark text-white mt-3"
+                type="submit"
+                value="Subscribe"
+              />
+            </form>
+            {% endif %}
+          </div>
+          <div id="update-progress" style="display: none" >
+            <form method="post">
+              <input type="hidden" name="form-name" value="update" />
+              <label for="progress">Select the progress of the idea</label>
+              <select
+                name="progress"
+                id="progress"
+                class="text-center rounded"
+                style="height: 38px; border:1px solid #098FFB "
+              >
+                <option value="initiated">initiated</option>
+                <option value="in-progress">in-progress</option>
+                <option value="completed">completed</option>
+                <option value="blocked">blocked</option>
+              </select>
+              <input
+                type="submit"
+                value="Update Progress"
+                id="submit-btn"
+                class="btn btn-outline-warning"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container clearfix mt-4 mb-5">
+      <div class="row d-sm-block">
+        <div class="col-sm-8 float-left mb-3">
+          <div><h4>Idea Progress</h4></div>
+        </div>
+        <div class="col-sm-3 float-right">
+          <button
+            class="bg-info"
+            style="width: 20px; border-radius: 50%; height: 20px"
+          ></button>
+          <span>Initiated</span>
+          <br />
+
+          <button
+            class="bg-warning"
+            style="width: 20px; border-radius: 50%; height: 20px"
+          ></button>
+          <span>In-Progress</span>
+          <br />
+          <button
+            class="bg-success"
+            style="width: 20px; border-radius: 50%; height: 20px"
+          ></button>
+          <span> Completed</span>
+          <br />
+          <button
+            class="bg-danger"
+            style="width: 20px; border-radius: 50%; height: 20px"
+          ></button>
+          <span> Blocked</span>
+          <br />
+        </div>
+        <div class="col-sm-8 float-left">
+          <div class="progress ml-2 mr-2 mt-0" id="display-progress">
+            <div
+              class="progress-bar progress-bar-striped"
+              role="progressbar"
+              style="width: 33.33%; border-right: 1px solid #000"
+              aria-valuenow="15"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              id="initiated"
+            >
+              Initiated
+            </div>
+            <div
+              class="progress-bar bg-light text-dark progress-bar-striped"
+              role="progressbar"
+              style="width: 33.33%; border-right: 1px solid #000"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              id="in-progress"
+            >
+              In-Progress
+            </div>
+            <div
+              class="progress-bar bg-light text-dark progress-bar-striped"
+              role="progressbar"
+              style="width: 33.33%"
+              aria-valuenow="20"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              id="completed"
+            >
+              Completed
+            </div>
+          </div>
+          <div
+            class="progress ml-2 mr-2 mt-0"
+            style="display: none"
+            id="blocked"
+          >
+            <div
+              class="progress-bar bg-danger progress-bar-striped"
+              role="progressbar"
+              style="width: 100%"
+              aria-valuenow="15"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              Blocked
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-basic">
+      <footer>
+        <ul class="list-inline">
+          <hr />
+          <li class="list-inline-item">
+            <a href="/contact-us">Contact Us</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="/faq">FAQs</a>
+          </li>
+          <li class="list-inline-item text-muted">Made By © Squad 0</li>
+        </ul>
+        <br />
+      </footer>
+    </div>
+  </body>
+</html>
